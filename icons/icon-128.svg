@@ -1,0 +1,9 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="25.6" height="128" fill="#F83B6D"/>
+  <rect x="25.6" width="25.6" height="128" fill="#FEE451"/>
+  <rect x="51.2" width="25.6" height="128" fill="#3CFB88"/>
+  <rect x="76.8" width="25.6" height="128" fill="#20B5F4"/>
+  <rect x="102.4" width="25.6" height="128" fill="#9922F7"/>
+  <circle cx="64" cy="64" r="20" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.5)" stroke-width="3"/>
+  <text x="64" y="70" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-family="Arial, sans-serif" font-size="12" font-weight="bold">P</text>
+</svg>

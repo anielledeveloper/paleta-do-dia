@@ -1,0 +1,325 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Main palette container */
+.palette-container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Color swatch styles */
+.color-swatch {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    overflow: hidden;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.color-swatch::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+}
+
+.color-swatch:hover::before {
+    transform: scale(1.02);
+}
+
+.color-swatch:hover {
+    z-index: 10;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Color hex text */
+.color-hex {
+    position: relative;
+    z-index: 2;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    transition: all 0.2s ease;
+    padding: 12px 20px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.color-swatch:hover .color-hex {
+    transform: scale(1.05);
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Copy feedback state */
+.color-hex.copied {
+    background: rgba(76, 175, 80, 0.9);
+    color: white;
+    transform: scale(1.1);
+}
+
+/* Palette name */
+.palette-name {
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    z-index: 100;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.3);
+    padding: 12px 20px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.palette-name:hover {
+    background: rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Shuffle button */
+.shuffle-button {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 12px 20px;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.shuffle-button:hover {
+    background: rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
+}
+
+.shuffle-button:active {
+    transform: translateY(0);
+}
+
+.shuffle-button svg {
+    transition: transform 0.3s ease;
+}
+
+.shuffle-button:hover svg {
+    transform: rotate(180deg);
+}
+
+.shuffle-text {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Loading indicator */
+.loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    color: white;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.loading.hidden {
+    display: none;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading p {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Copy feedback toast */
+.copy-feedback {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 300;
+    background: rgba(76, 175, 80, 0.95);
+    color: white;
+    padding: 16px 24px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.copy-feedback.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.copy-feedback svg {
+    flex-shrink: 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .color-hex {
+        font-size: 1rem;
+        padding: 6px 12px;
+    }
+    
+    .palette-name {
+        font-size: 1.2rem;
+        top: 16px;
+        left: 16px;
+        padding: 10px 16px;
+    }
+    
+    .shuffle-button {
+        top: 16px;
+        right: 16px;
+        padding: 10px 16px;
+    }
+    
+    .shuffle-text {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .color-hex {
+        font-size: 0.9rem;
+        padding: 4px 8px;
+    }
+    
+    .palette-name {
+        font-size: 1rem;
+        top: 12px;
+        left: 12px;
+        padding: 8px 12px;
+    }
+    
+    .shuffle-button {
+        top: 12px;
+        right: 12px;
+        padding: 8px 12px;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .color-hex {
+        background: rgba(0, 0, 0, 0.8);
+        border: 2px solid white;
+    }
+    
+    .palette-name,
+    .shuffle-button {
+        background: rgba(0, 0, 0, 0.8);
+        border: 2px solid white;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .color-swatch:hover::before {
+        transform: none;
+    }
+    
+    .shuffle-button:hover svg {
+        transform: none;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .palette-name,
+    .shuffle-button {
+        background: rgba(0, 0, 0, 0.4);
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    .palette-name:hover,
+    .shuffle-button:hover {
+        background: rgba(0, 0, 0, 0.5);
+    }
+}
