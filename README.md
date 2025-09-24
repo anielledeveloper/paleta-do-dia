@@ -2,6 +2,9 @@
 
 Uma extensão do Chrome que substitui a página de Nova Aba por uma paleta de cores inspiradora que muda diariamente. Perfeita para designers, desenvolvedores e entusiastas de cores que buscam inspiração criativa a cada nova aba.
 
+![Screen](1.png)
+![Screen](2.png)
+
 ## ✨ Características
 
 - **Paleta Diária**: Uma nova paleta de cores cuidadosamente curada a cada dia
